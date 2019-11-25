@@ -2,11 +2,14 @@ using _586.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Diagnostics;
 
 namespace _586
 {
@@ -31,6 +34,12 @@ namespace _586
 
             services.AddDbContext<JobContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //Trace.WriteLine("Hello World!");
+            //Trace.WriteLine(Configuration);
+
+            services.AddCors(); 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +64,10 @@ namespace _586
             }
 
             app.UseRouting();
+
+            app.UseCors(
+                options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
+            );
 
             app.UseEndpoints(endpoints =>
             {

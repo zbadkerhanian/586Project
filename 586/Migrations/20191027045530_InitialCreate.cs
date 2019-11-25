@@ -10,7 +10,8 @@ namespace _586.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    user_id = table.Column<string>(maxLength: 50, nullable: false),
+                    user_id = table.Column<int>(maxLength: 50, nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     first_name = table.Column<string>(maxLength: 50, nullable: false),
                     last_name = table.Column<string>(maxLength: 50, nullable: false),
                     email = table.Column<string>(maxLength: 50, nullable: false)
@@ -24,8 +25,9 @@ namespace _586.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    post_id = table.Column<string>(maxLength: 50, nullable: false),
-                    user_id = table.Column<string>(maxLength: 50, nullable: false),
+                    post_id = table.Column<int>(maxLength: 50, nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    user_id = table.Column<int>(maxLength: 50, nullable: false),
                     body = table.Column<string>(maxLength: 256, nullable: false)
                 },
                 constraints: table =>

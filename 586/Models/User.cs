@@ -5,17 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _586.Models
 {
-    public partial class Users
+    public partial class User
     {
-        public Users()
+        public User()
         {
-            Posts = new HashSet<Posts>();
+            Posts = new HashSet<Post>();
         }
 
         [Key]
         [Column("user_id")]
         [StringLength(50)]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         [Required]
         [Column("first_name")]
         [StringLength(50)]
@@ -30,6 +30,6 @@ namespace _586.Models
         public string Email { get; set; }
 
         [InverseProperty("User")]
-        public virtual ICollection<Posts> Posts { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

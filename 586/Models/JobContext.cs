@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace _586.Models
@@ -15,21 +16,21 @@ namespace _586.Models
         {
         }
 
-        public virtual DbSet<Posts> Posts { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        
+        public JobContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<JobContext>();
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-1IAKBLN\\SQLEXPRESS;Initial Catalog=586;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            return new JobContext(optionsBuilder.Options);
+        }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Data Source=DESKTOP-1IAKBLN\\SQLEXPRESS;Initial Catalog=586;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-//            }
-//        }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Posts>(entity =>
+            modelBuilder.Entity<Post>(entity =>
             {
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Posts)

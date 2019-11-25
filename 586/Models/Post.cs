@@ -5,23 +5,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _586.Models
 {
-    public partial class Posts
+    public partial class Post
     {
         [Key]
         [Column("post_id")]
-        [StringLength(50)]
-        public string PostId { get; set; }
+        public int PostId { get; set; }
         [Required]
         [Column("user_id")]
-        [StringLength(50)]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         [Required]
         [Column("body")]
         [StringLength(256)]
         public string Body { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        [InverseProperty(nameof(Users.Posts))]
-        public virtual Users User { get; set; }
+        [InverseProperty(nameof(Models.User.Posts))]
+        public virtual User User { get; set; }
     }
 }

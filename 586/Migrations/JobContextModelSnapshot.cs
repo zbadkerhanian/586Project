@@ -18,12 +18,14 @@ namespace _586.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("_586.Models.Posts", b =>
+            modelBuilder.Entity("_586.Models.Post", b =>
                 {
-                    b.Property<string>("PostId")
+                    b.Property<int>("PostId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("post_id")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("int")
+                        .HasMaxLength(50)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Body")
                         .IsRequired()
@@ -31,10 +33,9 @@ namespace _586.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
+                    b.Property<int>("UserId")
                         .HasColumnName("user_id")
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("int")
                         .HasMaxLength(50);
 
                     b.HasKey("PostId");
@@ -44,12 +45,14 @@ namespace _586.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("_586.Models.Users", b =>
+            modelBuilder.Entity("_586.Models.User", b =>
                 {
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("user_id")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("int")
+                        .HasMaxLength(50)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -74,9 +77,9 @@ namespace _586.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("_586.Models.Posts", b =>
+            modelBuilder.Entity("_586.Models.Post", b =>
                 {
-                    b.HasOne("_586.Models.Users", "User")
+                    b.HasOne("_586.Models.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK_Users_Posts")
