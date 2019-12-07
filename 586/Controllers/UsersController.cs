@@ -27,11 +27,14 @@ namespace BarHopApp.Controllers
         public IActionResult Get()
         {
             string result;
+
             List<UserVM> users = _context.Users.Select(u => new UserVM
             {
+                id = u.UserId,
                 firstName = u.FirstName,
                 lastName = u.LastName,
-                email = u.Email
+                email = u.Email,
+                posts = u.Posts.Select(p => p.Body).ToList()
             }).ToList();
 
             result = JsonConvert.SerializeObject(users);

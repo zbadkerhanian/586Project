@@ -38,7 +38,6 @@ namespace _586
             //Trace.WriteLine(Configuration);
 
             services.AddCors(); 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
         }
 
@@ -66,8 +65,8 @@ namespace _586
             app.UseRouting();
 
             app.UseCors(
-                options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
-            );
+                options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+            ) ;
 
             app.UseEndpoints(endpoints =>
             {
