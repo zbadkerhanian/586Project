@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace _586.ViewModels
 {
-    public class UserVM
+    public class AuthorVM
     {
         public int id;
         public string firstName;

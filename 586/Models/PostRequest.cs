@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _586.Models
 {
-    public class PostResponse
+    public class PostRequest
     {
         public string email { get; set; }
         [StringLength(256)]

@@ -5,11 +5,15 @@ using _586.Models;
 using _586.ViewModels;
 using Newtonsoft.Json;
 
+using System;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+
 namespace _586.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/{controller}/{action}")]
-
     public class PostsController : Controller
     {
         private readonly JobContext _context;
@@ -23,31 +27,40 @@ namespace _586.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+            //var authToken = Request.Headers["Authorization"];
+
+            //var principal = HttpContext.User.Identity as ClaimsIdentity;
+
+            //var login = principal.Claims
+            //    .SingleOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
+            //    ?.Value;
+
+
             string result;
             List<PostVM> posts = _context.Posts.Select(p => new PostVM
             {
-                id = p.PostId,
-                firstName = p.User.FirstName,
-                lastName = p.User.LastName,
-                email = p.User.Email,
+                id = p.Id,
+                firstName = p.Author.FirstName,
+                lastName = p.Author.LastName,
+                email = p.Author.Email,
                 body = p.Body
             }).ToList();
 
             result = JsonConvert.SerializeObject(posts);
 
             return Ok(result);
-            
+
         }
 
         [HttpPost]
-        public IActionResult Post(PostResponse post)
+        public IActionResult Post(PostRequest post)
         {
-            User user = _context.Users.Where(u => u.Email == post.email).FirstOrDefault();
-            if (user != null)
+            Author author = _context.Authors.Where(u => u.Email == post.email).FirstOrDefault();
+            if (author != null)
             {
-                Post newPost = new Models.Post
+                Post newPost = new Post
                 {
-                    UserId = user.UserId,
+                    AuthorId = author.Id,
                     Body = post.body
                 };
 
@@ -65,14 +78,12 @@ namespace _586.Controllers
         public IActionResult Delete(int id)
         {
 
-
-            //Post postToDelete = _context.Posts.FirstOrDefault(p => p.User.Email == post.email && p.Body == post.body);
-            Post postToDelete = _context.Posts.FirstOrDefault(p => p.PostId == id);
+            Post postToDelete = _context.Posts.FirstOrDefault(p => p.Id == id);
             if (postToDelete != null)
             {
                 _context.Posts.Remove(postToDelete);
                 _context.SaveChanges();
-                return Ok("Deleted post " + postToDelete.Body);
+                return Ok(postToDelete);
             }
             else
                 return Ok("The following post cannot be deleted because it does not exist: " + id);

@@ -25,18 +25,18 @@ namespace _586.Models
         }
 
         public virtual DbSet<Post> Posts { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Post>(entity =>
             {
-                entity.HasOne(d => d.User)
+                entity.HasOne(d => d.Author)
                     .WithMany(p => p.Posts)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.AuthorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Users_Posts");
+                    .HasConstraintName("FK_Authors_Posts");
             });
 
             OnModelCreatingPartial(modelBuilder);
