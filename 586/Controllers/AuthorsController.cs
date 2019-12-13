@@ -62,7 +62,7 @@ namespace BarHopApp.Controllers
                 return Ok(newAuthor.Id);
             }
             else
-                return Ok("Author " + author.email + " already exists.");
+                return BadRequest("Author " + author.email + " already exists.");
             //return Ok("Author blah blah already exists.");
 
 

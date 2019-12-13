@@ -1,0 +1,53 @@
+<div>
+    <h2>Posts</h2>
+    <ul class="posts">
+        <table>
+            <tr *ngFor="let post of posts">  
+                <td style="width: 200px">
+                    {{post.firstName}} {{post.lastName}} 
+                    <br>
+                    {{post.email}}
+                </td>
+                <td style="width:auto">
+                    {{post.body}} 
+                </td>
+                <!-- <td style="width:auto">
+                    {{post.id}} 
+                </td> -->
+                <td style="vertical-align:middle">
+                    <button (click)="delete(post)">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </ul>
+</div>
+<br>
+
+<!-- <div class="card-body"> -->
+<h2>Create a Post</h2>
+<!-- <div class="card-body" *ngIf="isAuthenticated"> -->
+<div class="card-body" >
+    <form id="postForm" [formGroup]="postForm" (ngSubmit)="onSubmit(postForm.value)" ngNativeValidate>
+        <div>
+            <label>Email of Author
+                <p>
+                    <select formControlName="email">
+                        <option *ngFor="let author of authors" [value]="author.email">{{author.firstName}} {{author.lastName}}</option>
+                    </select>
+                </p>
+                <!-- <p>
+                    <input name="email" type="email" placeholder="example@example.com" formControlName="email" required/>
+                </p> -->
+            </label>
+            <label class="">Post Body
+                <p>
+                    <textarea class="form-control" rows="5" name="body" formControlName="body" required></textarea>
+                </p>
+            </label>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-info btn-md waves-effect waves-light" type="submit">Post</button>
+        </div>
+    </form>
+</div>

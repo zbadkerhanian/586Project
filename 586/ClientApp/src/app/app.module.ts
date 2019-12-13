@@ -1,32 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { AuthorsComponent } from './components/authors/authors.component';
+import { MessagesComponent } from './components/messages/messages.component'; 
+import { PostsComponent } from './components/posts/posts.component'; 
+import { FormsModule, ReactiveFormsModule} from '@angular/forms'; // <-- NgModel lives here
+import { HttpClientModule } from '@angular/common/http';
+import { OktaAuthModule, OktaCallbackComponent } from '@okta/okta-angular';
+
+
+const config = {
+  issuer: 'https://dev-878513.okta.com',
+  redirectUri: 'https://localhost:44387/implicit/callback',
+  clientId: '0oa1y61un3b0skxmF357',
+  pkce: true
+}
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    AuthorsComponent,
+    MessagesComponent,
+    PostsComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    ReactiveFormsModule,
+    HttpClientModule,
+    OktaAuthModule.initAuth(config)
   ],
   providers: [],
   bootstrap: [AppComponent]

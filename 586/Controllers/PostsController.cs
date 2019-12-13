@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using _586.Models;
 using _586.ViewModels;
 using Newtonsoft.Json;
-
 using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
@@ -69,9 +68,8 @@ namespace _586.Controllers
                 return Ok(post);
             }
             else
-                return Ok("Author with email " + post.email + " does not exist.");
-            
-            
+                //throw new ArgumentException("Author with email " + post.email + " does not exist.");
+                return BadRequest(new {message = "Could not create post. Author is null or does not exist."});
         }
 
         [HttpDelete]
@@ -86,7 +84,7 @@ namespace _586.Controllers
                 return Ok(postToDelete);
             }
             else
-                return Ok("The following post cannot be deleted because it does not exist: " + id);
+                return BadRequest(new { message = "The post cannot be deleted because it does not exist:" });
 
         }
     }
