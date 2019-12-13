@@ -18,11 +18,11 @@ export class PostService {
   constructor(private oktaAuth: OktaAuthService,
     private http: HttpClient,
     private messageService: MessageService) { }
-
-  private getUrl = 'https://localhost:44387/api/Posts/Get';  // URL to web api
-  private getAuthorsUrl = 'https://localhost:44387/api/Authors/Get';  // URL to web api
-  private postUrl = 'https://localhost:44387/api/Posts/Post';  // URL to web api
-  private deleteUrl = 'https://localhost:44387/api/Posts/Delete';  // URL to web api
+  private baseUrl = 'http://authorsandblogs.us-west-1.elasticbeanstalk.com'
+  private getUrl = this.baseUrl + '/api/Posts/Get';  // URL to web api
+  private getAuthorsUrl = this.baseUrl + '/api/Authors/Get';  // URL to web api
+  private postUrl = this.baseUrl + '/api/Posts/Post';  // URL to web api
+  private deleteUrl = this.baseUrl + '/api/Posts/Delete';  // URL to web api
   public accessToken;
   
 

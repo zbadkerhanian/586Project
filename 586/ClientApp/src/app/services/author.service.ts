@@ -17,9 +17,10 @@ export class AuthorService {
               private http: HttpClient,
               private messageService: MessageService) { }
 
-  private getUrl = 'https://localhost:44387/api/Authors/Get';  // URL to web api
-  private postUrl = 'https://localhost:44387/api/Authors/Post';  
-  //private deleteUrl = 'https://localhost:44387/api/Authors/Delete';  
+  private baseUrl ='http://authorsandblogs.us-west-1.elasticbeanstalk.com'
+  private getUrl = this.baseUrl + '/api/Authors/Get';  // URL to web api
+  private postUrl = this.baseUrl + '/api/Authors/Post';  
+  //private deleteUrl = this.baseUrl + '/api/Authors/Delete';
   private accessToken;
 
 
