@@ -1,6 +1,6 @@
 # 586Project
 
-This is the back end Web API repository.
+This is the back end Web API repository hosted with the domain "https://api.authorsandblogs.com".
 
 Built with ASP.Net Core 3.0.
 
