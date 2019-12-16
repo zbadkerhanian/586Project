@@ -1,4 +1,4 @@
-# 586Project
+# AuthorsAPI
 
 This is the back end Web API repository hosted with the domain "https://api.authorsandblogs.com".
 
